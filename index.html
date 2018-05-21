@@ -115,7 +115,9 @@ body, html {
   <div class="w3-row w3-padding-32 w3-section">
     <div class="w3-col m4 w3-container">
       <!-- Add Google Maps -->
-      <div id="googleMap" class="w3-round-large w3-greyscale" style="width:100%;height:400px;"></div>
+      <div id="map" class="w3-round-large" style="width:100%;height:400px;"></div>
+      <div id="map"></div>
+
     </div>
     <div class="w3-col m8 w3-panel">
       <div class="w3-large w3-margin-bottom">
@@ -138,6 +140,41 @@ body, html {
 </footer>
  
 <!-- Add Google Maps -->
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 40.42122060000001, lng: -86.9031329},
+          zoom: 15
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+
+        service.getDetails({
+          placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
+        }, function(place, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                'Place ID: ' + place.place_id + '<br>' +
+                place.formatted_address + '</div>');
+              infowindow.open(map, this);
+            });
+          }
+        });
+      }
+    </script>
+
+
+
 <script>
 function myMap()
 {
@@ -153,22 +190,17 @@ function myMap()
     position: myCenter,
   });
 
-  google.maps.event.addListener(marker, 'click', function() {
-  infowindow.setContent('<div>'
-    place.formatted_address + '</div>');
-  infowindow.open(map, this);
-});
+//   google.maps.event.addListener(marker, 'click', function() {
+//   infowindow.setContent('<div>'
+//     place.formatted_address + '</div>');
+//   infowindow.open(map, this);
+// });
 
   marker.setMap(map);
+
 }
 
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
+
 
 // Change style of navbar on scroll
 window.onscroll = function() {myFunction()};
@@ -191,7 +223,9 @@ function toggleFunction() {
     }
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlC_tSVdJkI9NPC5IVZq9S282IVEVzQkw&callback=myMap"></script>
+<script async defer 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlC_tSVdJkI9NPC5IVZq9S282IVEVzQkw&callback=initMap">
+		</script>
 
 </body>
 </html>
