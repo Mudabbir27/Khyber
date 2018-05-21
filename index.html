@@ -148,11 +148,12 @@ body, html {
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.42122060000001, lng: -86.9031329},
-          zoom: 15
+          zoom: 4
         });
 
         var infowindow = new google.maps.InfoWindow();
         var service = new google.maps.places.PlacesService(map);
+        var myCenter=new google.maps.LatLng(40.42122060000001, -86.9031329);
 
         service.getDetails({
           placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
@@ -160,7 +161,7 @@ body, html {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             var marker = new google.maps.Marker({
               map: map,
-              position: place.geometry.location
+              position: myCenter
             });
             google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
