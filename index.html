@@ -115,8 +115,9 @@ body, html {
   <div class="w3-row w3-padding-32 w3-section">
     <div class="w3-col m4 w3-container">
       <!-- Add Google Maps -->
+
       <div id="map" class="w3-round-large" style="width:100%;height:400px;"></div>
-      <div id="map"></div>
+      <!-- <div id="map"></div> -->
 
     </div>
     <div class="w3-col m8 w3-panel">
@@ -141,22 +142,20 @@ body, html {
  
 <!-- Add Google Maps -->
     <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.42122060000001, lng: -86.9031329},
-          zoom: 4
+          zoom: 15
         });
 
-        var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow({maxWidth:150});
         var service = new google.maps.places.PlacesService(map);
         var myCenter=new google.maps.LatLng(40.42122060000001, -86.9031329);
 
         service.getDetails({
-          placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
+          placeId: 'Ei0yMzEgRSBTdGF0ZSBTdCwgV2VzdCBMYWZheWV0dGUsIElOIDQ3OTA2LCBVU0E'
         }, function(place, status) {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             var marker = new google.maps.Marker({
@@ -164,9 +163,11 @@ body, html {
               position: myCenter
             });
             google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                'Place ID: ' + place.place_id + '<br>' +
-                place.formatted_address + '</div>');
+            	
+            	infowindow.setContent('<div><strong> Khyber SuperMarket </strong><br>' + '<br>' +
+              	'<a href="https://www.google.com/maps/place/231+E+State+St,+West+Lafayette,+IN+47906/@40.4212206,-86.9053216,17z/data=!3m1!4b1!4m5!3m4!1s0x8812e2a814312479:0x9be799b7bf22f48e!8m2!3d40.4212206!4d-86.9031329">'+ 
+              	place.formatted_address + '</a>' +
+  '</div>');
               infowindow.open(map, this);
             });
           }
@@ -225,7 +226,7 @@ function toggleFunction() {
 }
 </script>
 <script async defer 
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlC_tSVdJkI9NPC5IVZq9S282IVEVzQkw&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlC_tSVdJkI9NPC5IVZq9S282IVEVzQkw&callback=initMap&libraries=places">
 		</script>
 
 </body>
